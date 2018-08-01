@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <title>Cesium Terrain Viewer</title>
+
+    <style type="text/css">
+      @import url(node_modules/cesium/Build/Cesium/Widgets/widgets.css);
+
+      html {
+        width: 100%;
+        height: 100%;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      #cesium-container,
+      .cesium-viewer,
+      .cesium-viewer-cesiumWidgetContainer,
+      .cesium-widget,
+      .cesium-widget > canvas {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="cesium-container"></div>
+
+    <script src="/dist/vendor/cesium/Build/CesiumUnminified/Cesium.js"></script>
+    <script src="/dist/map.bundle.js"></script>
+  </body>
+</html>
