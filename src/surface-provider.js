@@ -105,22 +105,30 @@ export default class SurfaceProvider {
     return window.fetch(url)
       .then(res => {
         if (res.status !== 200) {
-
           return Object.assign(
+            {},
             this.dummyTile,
             this.generateDummyTileHeader(x, y, level)
           )
         }
 
         return res.arrayBuffer().then(buffer => {
-          return decode(buffer)
-        })
+          return decode(buffer);
+        }).catch((err) => {
+          console.error(`Cannot decode tile ${url}`);
+          console.error(err);    
+          return Object.assign(
+            {},
+            this.dummyTile,
+            this.generateDummyTileHeader(x, y, level)
+          );
+        });
       })
       .then(decodedTile => {
         return this.createQuantizedMeshData(decodedTile, x, y, level)
       })
       .catch(err => {
-        console.log(err)
+        console.error(err);
       })
 
   }
