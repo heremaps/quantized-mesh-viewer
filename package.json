@@ -1,7 +1,7 @@
 {
-  "name": "@here/cesium-terrain-debugger",
+  "name": "@here/terrain-debugger",
   "version": "1.0.0",
-  "description": "Example of a quantized-mesh terrain provider for cesium",
+  "description": "Quantized mesh debugger",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server -d --host 0.0.0.0 --inline false",
@@ -14,10 +14,13 @@
   },
   "dependencies": {
     "@here/quantized-mesh-decoder": "^1.1.1",
-    "cesium": "^1.48.0"
+    "cesium": "^1.48.0",
+    "dat.gui": "^0.7.2",
+    "three": "^0.92.0"
   },
   "devDependencies": {
     "clean-webpack-plugin": "^0.1.19",
+    "copy-webpack-plugin": "^4.5.2",
     "standard": "^11.0.1",
     "webpack": "^4.17.1",
     "webpack-cli": "^3.1.0",
