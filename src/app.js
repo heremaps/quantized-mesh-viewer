@@ -9,7 +9,7 @@ const terrainProvider = new SurfaceProvider({
     const column = x
     const row = tilingScheme.getNumberOfYTilesAtLevel(level) - y - 1
 
-    return `./example-tiles/${ level }/${ column }/${ row }.terrain`
+    return `./example-tiles/${level}/${column}/${row}.terrain`
   },
   credit: `
     <a href="https://viewer.nationalmap.gov/basic/?basemap=b1&category=ned,nedsrc">

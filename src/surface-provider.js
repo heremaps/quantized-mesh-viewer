@@ -5,14 +5,14 @@ export default class SurfaceProvider {
   constructor (options = {}) {
     this.ready = false
     this.dummyTile = decode(dummyTileBuffer)
-    this.tilingScheme = options.tilingScheme || new Cesium.WebMercatorTilingScheme()
+    this.tilingScheme = options.tilingScheme || new window.Cesium.WebMercatorTilingScheme()
 
     if (options.getUrl === undefined) {
       throw new Error('getUrl option is missing')
     }
 
     if (options.credit !== undefined) {
-      this.credits = [new Cesium.Credit(options.credit)]
+      this.credits = [new window.Cesium.Credit(options.credit)]
     }
 
     this.getUrl = options.getUrl
@@ -24,10 +24,10 @@ export default class SurfaceProvider {
   generateDummyTileHeader (x, y, level) {
     const tileRect = this.tilingScheme.tileXYToRectangle(x, y, level)
     const tileNativeRect = this.tilingScheme.tileXYToNativeRectangle(x, y, level)
-    const tileCenter = Cesium.Cartographic.toCartesian(
-      Cesium.Rectangle.center(tileRect)
+    const tileCenter = window.Cesium.Cartographic.toCartesian(
+      window.Cesium.Rectangle.center(tileRect)
     )
-    const horizonOcclusionPoint = Cesium.Ellipsoid.WGS84.transformPositionToScaledSpace(
+    const horizonOcclusionPoint = window.Cesium.Ellipsoid.WGS84.transformPositionToScaledSpace(
       tileCenter
     )
 
@@ -48,17 +48,17 @@ export default class SurfaceProvider {
   }
 
   createQuantizedMeshData (decodedTile, x, y, level) {
-    const tileRect = this.tilingScheme.tileXYToRectangle(x, y, level);
-    const boundingSphereCenter = new Cesium.Cartesian3(
+    const tileRect = this.tilingScheme.tileXYToRectangle(x, y, level)
+    const boundingSphereCenter = new window.Cesium.Cartesian3(
       decodedTile.header.boundingSphereCenterX,
       decodedTile.header.boundingSphereCenterY,
       decodedTile.header.boundingSphereCenterZ
     )
-    const boundingSphere = new Cesium.BoundingSphere(
+    const boundingSphere = new window.Cesium.BoundingSphere(
       boundingSphereCenter,
       decodedTile.header.boundingSphereRadius
     )
-    const horizonOcclusionPoint = new Cesium.Cartesian3(
+    const horizonOcclusionPoint = new window.Cesium.Cartesian3(
       decodedTile.header.horizonOcclusionPointX,
       decodedTile.header.horizonOcclusionPointY,
       decodedTile.header.horizonOcclusionPointZ
@@ -66,15 +66,15 @@ export default class SurfaceProvider {
 
     let orientedBoundingBox
 
-    if (tileRect.width < Cesium.Math.PI_OVER_TWO + Cesium.Math.EPSILON5) {
-      orientedBoundingBox = Cesium.OrientedBoundingBox.fromRectangle(
+    if (tileRect.width < window.Cesium.Math.PI_OVER_TWO + window.Cesium.Math.EPSILON5) {
+      orientedBoundingBox = window.Cesium.OrientedBoundingBox.fromRectangle(
         tileRect,
         decodedTile.header.minHeight,
         decodedTile.header.maxHeight
       )
     }
 
-    return new Cesium.QuantizedMeshTerrainData({
+    return new window.Cesium.QuantizedMeshTerrainData({
       minimumHeight: decodedTile.header.minHeight,
       maximumHeight: decodedTile.header.maxHeight,
       quantizedVertices: decodedTile.vertexData,
@@ -108,7 +108,7 @@ export default class SurfaceProvider {
       .then(buffer => {
         return decode(buffer)
       }).catch((err) => {
-        console.error(`Decoding failed on tile ${ url }`)
+        console.error(`Decoding failed on tile ${this.getUrl(x, y, level)}`)
         console.error(err)
 
         return this.generateDummyTile(x, y, level)
@@ -130,9 +130,8 @@ export default class SurfaceProvider {
         return this.createQuantizedMeshData(decodedTile, x, y, level)
       })
       .catch(err => {
-        console.error(err);
+        console.error(err)
       })
-
   }
 
   getTileDataAvailable (x, y, level) {
@@ -140,7 +139,7 @@ export default class SurfaceProvider {
   }
 
   getLevelMaximumGeometricError (level) {
-    const levelZeroMaximumGeometricError = Cesium.TerrainProvider
+    const levelZeroMaximumGeometricError = window.Cesium.TerrainProvider
       .getEstimatedLevelZeroGeometricErrorForAHeightmap(
         this.tilingScheme.ellipsoid,
         65,
