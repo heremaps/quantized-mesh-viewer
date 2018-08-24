@@ -13,6 +13,34 @@ function loadMesh (path) {
     })
 }
 
+function signNotZero (vector) {
+  return new THREE.Vector2(
+    vector.x >= 0 ? 1 : -1,
+    vector.y >= 0 ? 1 : -1
+  )
+}
+
+function decodeOct (encodedVector) {
+  let decodedVector = encodedVector.divideScalar(255).multiplyScalar(2).subScalar(1)
+
+  decodedVector = new THREE.Vector3(
+    decodedVector.x,
+    decodedVector.y,
+    1 - Math.abs(decodedVector.x) - Math.abs(decodedVector.y)
+  )
+
+  if (decodedVector.z < 0) {
+    const xy = new THREE.Vector2(decodedVector.x, decodedVector.y)
+    const xyAbs = xy.distanceTo(new THREE.Vector2(0, 0))
+    const xySign = signNotZero(xy)
+    const decodedXy = xySign.multiplyScalar(1 - xyAbs)
+
+    decodedVector.set(decodedXy.x, decodedXy.y, decodedVector.z)
+  }
+
+  return decodedVector.normalize()
+}
+
 function constructHighlightedVerticesGeometry (vertexData, indices, container) {
   const elementsPerVertex = 3
   const geometry = new THREE.BufferGeometry()
@@ -76,14 +104,21 @@ function constructPositionAttribute (vertexData, container) {
   return new THREE.BufferAttribute(positionAttributeArray, elementsPerVertex)
 }
 
-function constructNormalAttribute (vertexNormals) {
+function constructNormalAttribute (vertexNormalsBuffer, vertexData) {
+  const view = new DataView(vertexNormalsBuffer)
+  const elementsPerEncodedNormal = 2
   const elementsPerNormal = 3
-  const vertexNormalsAttributeArray = new Float32Array(vertexNormals.length * elementsPerNormal)
+  const vertexNormalsAttributeArray = new Float32Array(vertexData.length)
 
-  for (let i = 0; i < vertexNormals.length; i++) {
-    vertexNormalsAttributeArray[i * elementsPerNormal] = vertexNormals[i].x
-    vertexNormalsAttributeArray[i * elementsPerNormal + 1] = vertexNormals[i].y
-    vertexNormalsAttributeArray[i * elementsPerNormal + 2] = vertexNormals[i].z
+  for (let position = 0, i = 0; position < vertexNormalsBuffer.byteLength; position += Uint8Array.BYTES_PER_ELEMENT * elementsPerEncodedNormal, i++) {
+    const decodedNormal = decodeOct(new THREE.Vector2(
+      view.getUint8(position, true),
+      view.getUint8(position + Uint8Array.BYTES_PER_ELEMENT, true)
+    ))
+
+    vertexNormalsAttributeArray[i * elementsPerNormal] = decodedNormal.x
+    vertexNormalsAttributeArray[i * elementsPerNormal + 1] = decodedNormal.y
+    vertexNormalsAttributeArray[i * elementsPerNormal + 2] = decodedNormal.z
   }
 
   return new THREE.BufferAttribute(vertexNormalsAttributeArray, elementsPerNormal, true)
@@ -124,7 +159,7 @@ function constructUvAttribute (verticesArray, container) {
   return new THREE.BufferAttribute(uvArray, elementsPerUv)
 }
 
-function constructGeometry ({ header, vertexData, triangleIndices, extensions }, container) {
+function constructGeometry ({header, vertexData, triangleIndices, extensions}, container) {
   const planeGeometry = new THREE.BufferGeometry()
   const positionAttribute = constructPositionAttribute(vertexData, container)
   const uvAttribute = constructUvAttribute(positionAttribute.array, container)
@@ -139,7 +174,7 @@ function constructGeometry ({ header, vertexData, triangleIndices, extensions },
   }
 
   if (extensions !== undefined && extensions.vertexNormals !== undefined) {
-    const normalAttribute = constructNormalAttribute(extensions.vertexNormals)
+    const normalAttribute = constructNormalAttribute(extensions.vertexNormals, vertexData)
 
     planeGeometry.addAttribute('normal', normalAttribute)
   } else {
