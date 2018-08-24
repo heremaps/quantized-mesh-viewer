@@ -8,8 +8,8 @@ Render custom [quantized mesh](https://github.com/AnalyticalGraphicsInc/quantize
 ### Run
 
 ```
-docker build -t qm-viewer .
-docker run -t -i --name qm-viewer -p 8080:8080 -v $(pwd):/usr/src/app qm-viewer
+npm i
+npm start
 ```
 At *http://localhost:8080* you'll see a Cesium map with example terrain tiles.
 
@@ -22,6 +22,13 @@ To debug individual tile go to *http://localhost:8080/tile.html*.
 ![Individual terrain tile rendered using THREE.js](./tile-preview.png)
 
 On the right panel change the path to the tile and adjust debug parameters.
+
+You can also start the app in a Docker container.
+
+```bash
+docker build -t qm-viewer .
+docker run -t -i --name qm-viewer -p 8080:8080 -v $(pwd):/usr/src/app qm-viewer
+```
 
 
 
