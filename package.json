@@ -13,7 +13,7 @@
     "url": "https://here.com"
   },
   "dependencies": {
-    "@here/quantized-mesh-decoder": "^1.1.1",
+    "@here/quantized-mesh-decoder": "^1.1.2",
     "cesium": "^1.48.0",
     "dat.gui": "^0.7.2",
     "three": "^0.92.0"
