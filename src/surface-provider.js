@@ -82,14 +82,10 @@ export default class SurfaceProvider {
       boundingSphere: boundingSphere,
       orientedBoundingBox: orientedBoundingBox,
       horizonOcclusionPoint: horizonOcclusionPoint,
-      //westIndices: decodedTile.westIndices,
-      //southIndices: decodedTile.southIndices,
-      //eastIndices: decodedTile.eastIndices,
-      //northIndices: decodedTile.northIndices,
-      westIndices: new Uint16Array(),
-      southIndices: new Uint16Array(),
-      eastIndices: new Uint16Array(),
-      northIndices: new Uint16Array(),
+      westIndices: decodedTile.westIndices,
+      southIndices: decodedTile.southIndices,
+      eastIndices: decodedTile.eastIndices,
+      northIndices: decodedTile.northIndices,
       westSkirtHeight: 1.0,
       southSkirtHeight: 1.0,
       eastSkirtHeight: 1.0,
@@ -99,30 +95,36 @@ export default class SurfaceProvider {
     })
   }
 
+  generateDummyTile (x, y, level) {
+    return Object.assign(
+      {},
+      this.dummyTile,
+      this.generateDummyTileHeader(x, y, level)
+    )
+  }
+
+  decodeResponse (res, x, y, level) {
+    return res.arrayBuffer()
+      .then(buffer => {
+        return decode(buffer)
+      }).catch((err) => {
+        console.error(`Decoding failed on tile ${ url }`)
+        console.error(err)
+
+        return this.generateDummyTile(x, y, level)
+      })
+  }
+
   requestTileGeometry (x, y, level) {
     const url = this.getUrl(x, y, level)
 
     return window.fetch(url)
       .then(res => {
         if (res.status !== 200) {
-          return Object.assign(
-            {},
-            this.dummyTile,
-            this.generateDummyTileHeader(x, y, level)
-          )
+          return this.generateDummyTile(x, y, level)
         }
 
-        return res.arrayBuffer().then(buffer => {
-          return decode(buffer);
-        }).catch((err) => {
-          console.error(`Cannot decode tile ${url}`);
-          console.error(err);    
-          return Object.assign(
-            {},
-            this.dummyTile,
-            this.generateDummyTileHeader(x, y, level)
-          );
-        });
+        return this.decodeResponse(res, x, y, level)
       })
       .then(decodedTile => {
         return this.createQuantizedMeshData(decodedTile, x, y, level)

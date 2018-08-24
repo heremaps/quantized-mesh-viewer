@@ -12,12 +12,12 @@
     "url": "https://here.com"
   },
   "dependencies": {
-    "cesium": "^1.47.0",
-    "@here/quantized-mesh-decoder": "^1.0.2"
+    "@here/quantized-mesh-decoder": "^1.1.1",
+    "cesium": "^1.48.0"
   },
   "devDependencies": {
     "clean-webpack-plugin": "^0.1.19",
-    "webpack": "^4.16.3",
+    "webpack": "^4.17.1",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.5"
   }
