@@ -1,24 +1,33 @@
-Cesium Terrain Debugger
+Quantized Mesh Viewer
 ===========================
 
-Application to render and debug custom quantized mesh tiles using Cesium.
+Render custom [quantized mesh](https://github.com/AnalyticalGraphicsInc/quantized-mesh) tiles in Cesium and debug individual tiles using THREE.js renderer.
 
 
 
 ### Run
 
-1. Build Docker image and run the container.
 ```
-docker build -t cesium-terrain-dubugger .
-docker run -t -i --rm --name cesium-terrain-debugger -p 8081:8080 -v $(pwd):/usr/src/app cesium-terrain-dubugger
+docker build -t qm-viewer .
+docker run -t -i --name qm-viewer -p 8080:8080 -v $(pwd):/usr/src/app qm-viewer
 ```
-1. Open `http://localhost:8081` in the browser.
+At *http://localhost:8080* you'll see a Cesium map with example terrain tiles.
+
+![Cesium map with rendered terrain tiles](./map-preview.png)
+
+
+
+To debug individual tile go to *http://localhost:8080/tile.html*.
+
+![Individual terrain tile rendered using THREE.js](./tile-preview.png)
+
+On the right panel change the path to the tile and adjust debug parameters.
 
 
 
 ### Custom Tiles
 
-By default application renders example tiles from `./example-tiles` folder. To serve files from different location customize `SurfaceProvider` parameters in the `./src/app.js`.
+By default application renders example tiles from `./example-tiles` folder. To serve files from different location customize `SurfaceProvider` parameters in the `./src/map/index.js`.
 
 Application serves statics from its whole root directory so you can put folder with custom tiles next to the `./example-tiles` folder.
 
