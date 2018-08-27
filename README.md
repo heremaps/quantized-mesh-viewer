@@ -67,8 +67,14 @@ Options:
 
 ### Links
 
-* [Quantized Mesh Decoder](https://deveo.in.here.com/HERE/projects/surface/repositories/quantized-mesh-decoder/tree/master)
+* [Quantized Mesh Decoder](https://github.com/heremaps/quantized-mesh-decoder)
 * [Quantized Mesh Format Specification](https://github.com/AnalyticalGraphicsInc/quantized-mesh)
+
+
+
+### Contribute
+
+See [CONTRIBUTING](./CONTRIBUTING.md).
 
 
 
