@@ -13,7 +13,7 @@
     "url": "https://here.com"
   },
   "dependencies": {
-    "@here/quantized-mesh-decoder": "ssh+git@github.com:heremaps/quantized-mesh-decoder.git",
+    "@here/quantized-mesh-decoder": "^1.1.3",
     "cesium": "^1.48.0",
     "dat.gui": "^0.7.2",
     "three": "^0.92.0"
