@@ -1,7 +1,7 @@
 {
   "name": "@here/quantized-mesh-viewer",
   "version": "1.0.0",
-  "description": "Quantized mesh debugger",
+  "description": "Quantized mesh viewer",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server -d --host 0.0.0.0 --inline false",
