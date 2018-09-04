@@ -3,7 +3,7 @@ Quantized Mesh Viewer
 
 Render custom [quantized mesh](https://github.com/AnalyticalGraphicsInc/quantized-mesh) tiles in Cesium and debug individual tiles using THREE.js renderer.
 
-
+Note: This is experimental code, expect changes. 
 
 ### Run
 
