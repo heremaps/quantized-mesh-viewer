@@ -1,4 +1,4 @@
-# Contributing to {INSERT_PROJECT_NAME}
+# Contributing to quantized-mesh-viewer
 
 Thanks for your interest in contributing! This document outlines how we expect
 contributions to happen.
