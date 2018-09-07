@@ -12,9 +12,8 @@ const terrainProvider = new SurfaceProvider({
     return `/example-tiles/${level}/${column}/${row}.terrain`
   },
   credit: `
-    <a href="https://viewer.nationalmap.gov/basic/?basemap=b1&category=ned,nedsrc">
-      The National Map
-    </a>
+    U.S.Department of the Interior, U.S. Geological Survey, 1992, 
+    Standards for digital elevation models: Reston, VA
   `
 })
 
@@ -28,13 +27,13 @@ viewer.extend(Cesium.viewerCesiumInspectorMixin)
 
 viewer.camera.setView({
   destination: Cesium.Cartesian3.fromDegrees(
-    -122.47366673618687,
-    37.73108915123822,
-    1000
+    -122.1423593,
+    42.8015521,
+    20000
   ),
   orientation: {
     heading: 0.0,
-    pitch: -Cesium.Math.PI_OVER_TWO,
+    pitch: -Cesium.Math.PI_OVER_TWO / 2,
     roll: 0.0
   }
 })

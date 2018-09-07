@@ -88,10 +88,10 @@ export default class SurfaceProvider {
       southIndices: decodedTile.southIndices,
       eastIndices: decodedTile.eastIndices,
       northIndices: decodedTile.northIndices,
-      westSkirtHeight: 1.0,
-      southSkirtHeight: 1.0,
-      eastSkirtHeight: 1.0,
-      northSkirtHeight: 1.0,
+      westSkirtHeight: 100,
+      southSkirtHeight: 100,
+      eastSkirtHeight: 100,
+      northSkirtHeight: 100,
       childTileMask: 15,
       credits: this.credits
     })
