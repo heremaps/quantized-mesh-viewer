@@ -25,7 +25,7 @@
     "THREE.js"
   ],
   "dependencies": {
-    "@here/quantized-mesh-decoder": "^1.1.3",
+    "@here/quantized-mesh-decoder": "github:heremaps/quantized-mesh-decoder",
     "cesium": "^1.49.0",
     "dat.gui": "^0.7.2",
     "three": "^0.92.0"
