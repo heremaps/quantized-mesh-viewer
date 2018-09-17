@@ -166,7 +166,7 @@ function renderFrame (scene, camera, renderer, controls) {
 
 const decodingSteps = Object.keys(DECODING_STEPS)
 const defaultParams = {
-  meshUrl: '/example-tiles/14/2618/10044.terrain',
+  meshUrl: '/example-tiles/13/1312/5176.terrain',
   appearance: 'normal',
   normalHelper: false,
   light: false,
