@@ -1,4 +1,4 @@
-FROM node:8.11.3-alpine
+FROM node:alpine
 
 ENV APP_DIR="/usr/src/app"
 
@@ -7,4 +7,4 @@ VOLUME ${APP_DIR}
 
 WORKDIR ${APP_DIR}
 
-CMD npm i && npm start
+CMD npm install webpack-dev-server && npm i && npm start
