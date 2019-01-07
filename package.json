@@ -26,16 +26,16 @@
   ],
   "dependencies": {
     "@here/quantized-mesh-decoder": "github:heremaps/quantized-mesh-decoder",
-    "cesium": "^1.49.0",
-    "dat.gui": "^0.7.2",
+    "cesium": "^1.53.0",
+    "dat.gui": "^0.7.4",
     "three": "^0.92.0"
   },
   "devDependencies": {
     "clean-webpack-plugin": "^0.1.19",
-    "copy-webpack-plugin": "^4.5.2",
+    "copy-webpack-plugin": "^4.6.0",
     "standard": "^11.0.1",
-    "webpack": "^4.17.1",
-    "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.5"
+    "webpack": "^4.28.3",
+    "webpack-cli": "^3.2.1",
+    "webpack-dev-server": "^3.1.14"
   }
 }
