@@ -3,7 +3,7 @@ Quantized Mesh Viewer
 
 Render custom [quantized mesh](https://github.com/AnalyticalGraphicsInc/quantized-mesh) tiles in Cesium and debug individual tiles using THREE.js renderer.
 
-For generation qunatized-mesh tiles from raster you can use the [heremaps/tin-terrain](https://github.com/heremaps/tin-terrain) tool
+For generation quantized-mesh tiles from raster you can use the [heremaps/tin-terrain](https://github.com/heremaps/tin-terrain) tool.
 
 Note: This is experimental code, expect changes. 
 
